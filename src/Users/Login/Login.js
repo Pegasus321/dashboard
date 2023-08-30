@@ -1,18 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
+import auth from "../firebaseConfig.js";
 import { styled } from "styled-components";
 import { createGlobalStyle } from "styled-components";
 import { Link } from "react-router-dom";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
+  const navigate = useNavigate();
+  const [login, setLoggedIn] = useState(null);
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    const { email, password } = e.target.elements;
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email.value,
+        password.value
+      );
+      setLoggedIn(true);
+      const user = userCredential.user;
+      console.log(user);
+      localStorage.setItem("user", JSON.stringify(user.email));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  if (login) {
+    return navigate("/dashboard");
+  }
   return (
     <>
       <GlobalStyle />
       <div className="login">
-        <form action="">
+        <form action="" onSubmit={handleLogin}>
           <Log>
-            <Input type="email" value="email" placeholder="email" />
-            <Input type="password" value="password" placeholder="password" />
-            <Button className="login--button">Login</Button>
+            <label htmlFor="email">Email</label>
+            <Input type="email" name="email" placeholder="email" />
+            <label htmlFor="password">Password</label>
+            <Input type="password" name="password" placeholder="password" />
+            <Button type="submit">Login</Button>
           </Log>
         </form>
         <SignUp>

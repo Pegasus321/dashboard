@@ -1,16 +1,75 @@
 import React from "react";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { useState } from "react";
 import { createGlobalStyle, styled } from "styled-components";
+import auth from "../firebaseConfig.js";
 
 export default function SignUp() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [retypePass, setRetypePass] = useState("");
+  const [passwordMatch, setPasswordMatch] = useState(true);
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const handleRetypePasswordChange = (e) => {
+    setRetypePass(e.target.value);
+
+    setPasswordMatch(e.target.value === password);
+  };
+
+  const handleRegisterClick = () => {
+    if (password == retypePass) {
+      try {
+        const userCredential = createUserWithEmailAndPassword(
+          auth,
+          email,
+          password
+        );
+        const user = userCredential.user;
+
+        console.log(user);
+      } catch (error) {
+        alert(error);
+      }
+    } else {
+      setPasswordMatch(false);
+    }
+  };
+
   return (
     <>
       <GlobalStyles />
       <Signup>
-        <Input type="email" placeholder="email" />
-        <Input type="password" placeholder="password" />
-        <Input type="password" placeholder="Retype" />
-        <Button>Register</Button>
+        <label htmlFor="email">Email</label>
+        <Input
+          type="email"
+          value={email}
+          onChange={handleEmailChange}
+          placeholder="email"
+        />
+        <label htmlFor="password">Password</label>
+        <Input
+          type="password"
+          value={password}
+          onChange={handlePasswordChange}
+          placeholder="password"
+        />
+        <label htmlFor="password">Confirm Password</label>
+        <Input
+          type="password"
+          value={retypePass}
+          onChange={handleRetypePasswordChange}
+          placeholder="Retype"
+        />
+        {!passwordMatch && <ErrorMessage>Password do not match</ErrorMessage>}
+        <Button onClick={handleRegisterClick}>Register</Button>
       </Signup>
     </>
   );
@@ -52,4 +111,9 @@ body{
     margin:0;   
     background-color:#f0f0f0;
 }
+`;
+const ErrorMessage = styled.p`
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
 `;
