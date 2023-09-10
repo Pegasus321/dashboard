@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchData } from "../redux/action";
 import Bar from "../d3/Bar";
+import Graph from "../try/Graph";
 
 //d3
 import * as d3 from "d3";
@@ -30,68 +31,28 @@ const Page = () => {
     return <p>Error:{error.message}</p>;
   }
 
-  //   const newData = new Set(data.map((item) => item.intensity));
-  //   const unData = Array.from(newData);
-  const sampleData = [
-    {
-      language: "Rust",
-      value: 78.9,
-      color: "#000000",
-    },
-    {
-      language: "Kotlin",
-      value: 75.1,
-      color: "#00a2ee",
-    },
-    {
-      language: "Python",
-      value: 68.0,
-      color: "#fbcb39",
-    },
-    {
-      language: "TypeScript",
-      value: 67.0,
-      color: "#007bc8",
-    },
-    {
-      language: "Go",
-      value: 65.6,
-      color: "#65cedb",
-    },
-    {
-      language: "Swift",
-      value: 65.1,
-      color: "#ff6e52",
-    },
-    {
-      language: "JavaScript",
-      value: 61.9,
-      color: "#f9de3f",
-    },
-    {
-      language: "C#",
-      value: 60.4,
-      color: "#5d2f8e",
-    },
-    {
-      language: "F#",
-      value: 59.6,
-      color: "#008fc9",
-    },
-    {
-      language: "Clojure",
-      value: 59.6,
-      color: "#507dca",
-    },
-  ];
+  const newData = new Set(data.map((item) => item.intensity));
+  const unintensity = Array.from(newData);
+  const filteredData = [];
+  unintensity.forEach((oil) => {
+    filteredData[oil] = data.filter((item) => item.sector === oil);
+  });
+
+  console.log(filteredData);
 
   return (
     <div>
-      {/* {unData.map((item) => (
-        <p key={item.id}>{item}</p>
+      {/* {filteredData.map((item) => (
+        <div>
+          <p>{item.intensity}</p>
+          <p>{item.topic}</p>
+          <p>{item.region}</p>
+          <p>{item.impact}</p>
+        </div>
       ))} */}
       {/* <Bar data={sampleData} /> */}
-      <BarG data={data} />
+      {/* <BarG data={data} /> */}
+      <Graph dataset={unintensity} />
     </div>
   );
 };
