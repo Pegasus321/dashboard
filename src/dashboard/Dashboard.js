@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchData } from "../redux/action";
 import { useState } from "react";
 import "../style.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -17,7 +19,13 @@ import DashBo from "./sub/DashBo";
 
 function Dashboard() {
   const [selectedComponent, setSelectedComponent] = useState(null);
+  const data = useSelector((state) => state.data.data);
+  const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(fetchData());
+  }, [dispatch]);
+  // console.log(data);
   const handleSidebarOptionClick = (component) => {
     setSelectedComponent(component);
   };
@@ -44,7 +52,7 @@ function Dashboard() {
             {selectedComponent === "Profile" && <Profile />}
             {selectedComponent === "Statistics" && <Statistics />}
             {selectedComponent === "Faq" && <Faq />}
-            {selectedComponent === "Graph" && <Graph />}
+            {selectedComponent === "Graph" && <Graph Data={data} />}
           </div>
         </div>
       </div>
