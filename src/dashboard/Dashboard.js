@@ -49,10 +49,10 @@ function Dashboard() {
           </div>
           <div className="Inner-box">
             {selectedComponent === "DashBo" && <DashBo />}
-            {selectedComponent === "Profile" && <Profile />}
             {selectedComponent === "Statistics" && <Statistics />}
-            {selectedComponent === "Faq" && <Faq />}
             {selectedComponent === "Graph" && <Graph Data={data} />}
+            {selectedComponent === "Profile" && <Profile />}
+            {selectedComponent === "Faq" && <Faq />}
           </div>
         </div>
       </div>

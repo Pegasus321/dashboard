@@ -29,28 +29,28 @@ export const Sidebar = ({ onOptionClick }) => {
             <span> Dashboard</span>
           </a>
         </li>
-        <li className={activeOption === "Profile" ? "active" : ""}>
-          <a href="#" onClick={() => handleSidebarClick("Profile")}>
-            <FontAwesomeIcon icon={faUser} />
-            <span> Profile</span>
-          </a>
-        </li>
         <li className={activeOption === "Statistics" ? "active" : ""}>
           <a href="#" onClick={() => handleSidebarClick("Statistics")}>
             <FontAwesomeIcon icon={faChartBar} />
             <span> Statistics</span>
           </a>
         </li>
-        <li className={activeOption === "Faq" ? "active" : ""}>
-          <a href="#" onClick={() => handleSidebarClick("Faq")}>
-            <FontAwesomeIcon icon={faQuestionCircle} />
-            <span> FAQ</span>
-          </a>
-        </li>
         <li className={activeOption === "Graph" ? "active" : ""}>
           <a href="#" onClick={() => handleSidebarClick("Graph")}>
             <FontAwesomeIcon icon={faCog} />
             <span> Graph</span>
+          </a>
+        </li>
+        <li className={activeOption === "Profile" ? "active" : ""}>
+          <a href="#" onClick={() => handleSidebarClick("Profile")}>
+            <FontAwesomeIcon icon={faUser} />
+            <span> Profile</span>
+          </a>
+        </li>
+        <li className={activeOption === "Faq" ? "active" : ""}>
+          <a href="#" onClick={() => handleSidebarClick("Faq")}>
+            <FontAwesomeIcon icon={faQuestionCircle} />
+            <span> FAQ</span>
           </a>
         </li>
         <li className="logout">
