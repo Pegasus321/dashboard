@@ -36,7 +36,7 @@ function Dashboard() {
         <div className="main--content">
           <div className="header--wrapper">
             <div className="header--title">
-              <span>Primary</span>
+              <span>Primaryy</span>
               <h2>Dashboard</h2>
             </div>
             <div className="user--info">
